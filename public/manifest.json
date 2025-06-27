@@ -1,0 +1,22 @@
+﻿{
+  "manifest_version": 3,
+  "name": "Reading Attention Aid",
+  "version": "0.0.1",
+  "description": "A Reading Aid Extension for Enhancing Focus for Individuals with ADHD and Other Reading Challenges.\n这个插件旨在帮助有注意力缺陷和其他阅读障碍的用户更好地集中注意力。",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/vite.svg",
+    "default_title": "点击打开我的插件"
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
