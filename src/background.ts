@@ -31,7 +31,7 @@ chrome.action.onClicked.addListener(async (): Promise<void> => {
             console.error('無法獲取活躍標籤頁 ID，或 ID 為 undefined。');
             return; // 如果 ID 不存在，就直接返回，不執行後續操作
         }
-        const resp: any = await sendMessageToContentScript(activeTab.id, {action: "startReading"});
+        const resp: any = await sendMessageToContentScript(activeTab.id, {action: "readContent"});
 
         // 3. 处理文本
         // 3. process the text
