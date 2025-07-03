@@ -1,18 +1,22 @@
 import './popup.css';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const button = document.getElementById('myButton') as HTMLButtonElement;
-    const messageDiv = document.getElementById('message') as HTMLDivElement;
+  const applyStyleBtn = document.getElementById('applyStyleBtn');
 
-    if (button) {
-        button.addEventListener('click', () => {
-            messageDiv.textContent = '按鈕被點擊了！';
-            chrome.storage.local.set({ lastClicked: new Date().toLocaleString() });
-
-            // 發送訊息給背景腳本
-            chrome.runtime.sendMessage({ greeting: "來自彈窗的問候" }, (response) => {
-                console.log("背景腳本的回覆:", response);
-            });
-        });
-    }
+  if (applyStyleBtn) {
+    applyStyleBtn.addEventListener('click', async () => {
+      try {
+        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+        if (tab && tab.id) {
+          await chrome.tabs.sendMessage(tab.id, { action: "applyBoldStyle" });
+          console.log("已发送 applyBoldStyle 指令到内容脚本。");
+          window.close(); // 操作完成后自动关闭弹窗
+        } else {
+          console.error('无法获取活跃标签页。');
+        }
+      } catch (error) {
+        console.error("发送消息时发生错误:", error);
+      }
+    });
+  }
 });
